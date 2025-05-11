@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 class AuthController extends Controller
 {
     public function login(): RedirectResponse {
-        $user = User::find(1);
+        $user = User::find(2);
         Auth::login($user);
         return redirect()->route('home');
     }
@@ -38,7 +38,28 @@ class AuthController extends Controller
         if (Auth::user()->can('user_is_admin')) {
             echo 'Ben vindo';
         } else {
-            echo "User não é admin";
+            echo "não e autorizado";
+        }
+        // essa condiçao noa poder ser um usuario tem que ser admin
+        if(Auth::user()->cannot('user_is_user')) {
+            echo '<br> Usuário lagado e user logado';
+        } else {
+            echo "<br> <hr>Bem-vido";
+        }
+    }
+
+    public function onlyUsers() : void
+    {
+        if (Auth::user()->can('user_is_user')) {
+            echo 'Ben vindo';
+        } else {
+            echo "user não e admin";
+        }
+
+        if(Gate::denies('user_is_admin')){
+            echo '<br> Usuário lagado e user';
+        } else {
+            echo "<br> <hr>User é uma usuário";
         }
     }
 }

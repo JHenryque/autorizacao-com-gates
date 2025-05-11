@@ -9,6 +9,7 @@
                     <li><a href="{{ route('login') }}">Login</a></li>
                     @else
                     <li><a href="{{ route('only_admin') }}">So Admins</a></li>
+                        <li><a href="{{ route('only_user') }}">So Usuario</a></li>
                 @endguest
                 </ul>
 

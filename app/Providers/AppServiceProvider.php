@@ -32,5 +32,18 @@ class AppServiceProvider extends ServiceProvider
             return $user->role === 'user';
         });
 
+        // o usuário pode fazer inserts?
+        Gate::define('user_can_insert', function (User $user) {
+           return in_array('insert', json_decode($user->permissions));
+        });
+
+        // o usuário pode fazer delete?
+        Gate::define('user_can_delete', function (User $user) {
+            return in_array('delete', json_decode($user->permissions));
+        });
+
+        Gate::define('user_can', function (User $user, string $permission) {
+           return in_array($permission, json_decode($user->permissions));
+        });
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 class AuthController extends Controller
 {
     public function login(): RedirectResponse {
-        $user = User::find(2);
+        $user = User::find(1);
         Auth::login($user);
         return redirect()->route('home');
     }
@@ -61,5 +61,14 @@ class AuthController extends Controller
         } else {
             echo "<br> <hr>User é uma usuário";
         }
+    }
+
+    public function delete()
+    {
+       if (Auth::user()->can('user_can', 'delete')) {
+           echo 'deletado';
+       } else {
+           return;
+       }
     }
 }

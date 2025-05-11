@@ -17,6 +17,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // add the following columns
+            $table->string('role')->default('adnim');
+            $table->string('permissions')->default('adnim');
+
             $table->rememberToken();
             $table->timestamps();
         });
